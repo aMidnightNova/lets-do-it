@@ -1,14 +1,17 @@
-import '@babel/polyfill'
-import Vue from 'vue'
-import './plugins/vuetify'
-import App from './App.vue'
-import router from './router'
-import store from './store'
+import '@babel/polyfill';
+import Vue from 'vue';
+import './plugins/vuetify';
+import './plugins/gravatar';
+import App from './App.vue';
+import router from './router';
+import store from './store';
+Vue.config.productionTip = false;
 
-Vue.config.productionTip = false
+import axios from 'axios';
+Object.defineProperty(Vue.prototype, '$axios', {value: axios});
 
-new Vue({
+window.vm = new Vue({
   router,
   store,
   render: function (h) { return h(App) }
-}).$mount('#app')
+}).$mount('#app');
