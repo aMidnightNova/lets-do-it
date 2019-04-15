@@ -1,4 +1,4 @@
-# my-tasks
+# lets-do-it
 
 ## Project setup
 ```
