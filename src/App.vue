@@ -248,8 +248,6 @@
 </script>
 
 <style>
-  .tilez {
-    background: red;
-  }
+
 
 </style>
