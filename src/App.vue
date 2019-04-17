@@ -219,8 +219,7 @@
     name: 'App',
     beforeMount() {
       // change the vuetify theme before the app loads
-      console.log(this.themes[0])
-      this.$vuetify.theme = this.themes[0].colors
+      this.$vuetify.theme = this.themes[0].colors;
     },
     computed: {
       color() {

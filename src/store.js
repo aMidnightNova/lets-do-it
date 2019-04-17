@@ -94,7 +94,6 @@ export default new Vuex.Store({
     addItem2TodoList: function (state, payload) { //papyload = {listTitle,name}
       let {todoLists} = state;
       let index = todoLists.findIndex(item => item.title === payload.listTitle);
-      console.log(index)
       todoLists[index].tasks.push(
           {name: payload.name, completed: false}
       );
