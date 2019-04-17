@@ -200,19 +200,34 @@
 
           },
           {
-            title: "white",
+            title: "red",
             colors: {
-              title: "white",
-              primary: colors.grey.lighten2,
-              secondary: colors.grey.darken2,
-              accent: colors.shades.black,
-              error: colors.red.accent3,
-              primaryBorder: colors.grey.darken2,
+              title: "red",
+              primary: colors.red.lighten2,
+              secondary: colors.grey.darken1,
+              accent: colors.red.lighten3,
+              error: colors.blue.accent3,
+              primaryBorder: colors.red.darken2,
+              menuBackground: colors.grey.darken4, // base is default color
+
+            }
+
+          },
+          {
+            title: "green",
+            colors: {
+              title: "green",
+              primary: colors.green.lighten2,
+              secondary: colors.grey.darken1,
+              accent: colors.green.lighten3,
+              error: colors.blue.accent3,
+              primaryBorder: colors.green.darken2,
               menuBackground: colors.grey.darken4, // base is default color
 
             }
 
           }
+
         ]
       }
     },
