@@ -1,74 +1,99 @@
 <template>
   <v-app light>
-    <v-navigation-drawer dark clipped app v-model="drawer" :width="breakpointName === 'xs' ? '240' : '300'"
+    <v-navigation-drawer dark clipped app v-model="drawer" :width="breakpointName === 'xs' ? '250' : '300'"
                          v-if="this.$store.state.isAuthorized">
-      <v-toolbar color="transparent" flat>
-        <v-toolbar-title v-if="breakpointName === 'xs'" class="body-2">MY TODO LISTS</v-toolbar-title>
-        <v-toolbar-title v-else>MY TODO LISTS</v-toolbar-title>
-
-        <v-spacer></v-spacer>
-
-        <v-menu v-model="addMenu" :close-on-content-click="false" :nudge-width="200" offset-x>
-          <template v-slot:activator="{ on }">
-            <v-btn small depressed light block v-on="on" @click="resetValues()">
-              <v-icon>add</v-icon>
-              add
-            </v-btn>
-          </template>
-
-          <v-card>
-            <div style="padding: 10px 0 0 10px">
-              <h2> Add a Todo List</h2>
-            </div>
 
 
-            <v-list>
-              <v-list-tile>
-                <v-form ref="form" v-model="addTodoIsValid">
-                  <v-text-field
-                          v-model="todoName"
-                          label="Todo List Name"
-                          :rules="[rules.required]"
-                          required
-                  ></v-text-field>
-                </v-form>
+      <v-list class="ma-0 pa-0">
+        <v-list-tile v-bind:to="`/${userName}/dashboard`">
+          <v-list-tile-action>
 
-              </v-list-tile>
+            <v-icon>dashboard</v-icon>
 
-            </v-list>
-            <v-divider></v-divider>
-
-            <v-card-actions>
-              <v-spacer></v-spacer>
-
-              <v-btn flat @click="addMenu = false">Cancel</v-btn>
-              <v-btn :disabled="!addTodoIsValid" color="primary" flat @click="addTodoList(todoName)">Add</v-btn>
-            </v-card-actions>
-          </v-card>
-
-
-        </v-menu>
-        <!--<v-btn small depressed light block>-->
-        <!--<v-icon>add</v-icon>-->
-        <!--add-->
-        <!--</v-btn>-->
-
-      </v-toolbar>
-
-      <v-divider></v-divider>
-
-
-      <v-list>
-        <v-list-tile v-for="(menuItem, i) in menu" :key="i" v-bind:to="`/${userName}/${menuItem.name}`">
-          <!--<v-list-tile-action>-->
-
-          <!--<v-icon>{{menuItem.icon}}</v-icon>-->
-
-          <!--</v-list-tile-action>-->
+          </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title v-text="menuItem.name"></v-list-tile-title>
+            <v-list-tile-title><h3>Dashboard</h3></v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
+
+        <v-list-group :value="true">
+          <v-list-tile slot="activator">
+            <v-list-tile-action>
+
+              <v-icon>lists</v-icon>
+
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title><h3>Todos</h3></v-list-tile-title>
+            </v-list-tile-content>
+
+            <v-list-tile-action>
+              <v-menu v-model="addMenu" :close-on-content-click="false" :nudge-width="200" offset-x>
+                <template v-slot:activator="{ on }">
+                  <v-btn small depressed dark icon v-on="on" @click="resetValues()" @click.native.stop>
+                    <v-icon class="" large>add_circle_outline</v-icon>
+                  </v-btn>
+                </template>
+
+                <v-card>
+                  <div style="padding: 10px 0 0 10px">
+                    <h2> Add a Todo List</h2>
+                  </div>
+
+
+                  <v-list>
+                    <v-list-tile>
+                      <v-form ref="form" v-model="addTodoIsValid">
+                        <v-text-field
+                                v-model="todoName"
+                                label="Todo List Name"
+                                :rules="[rules.required]"
+                                required
+                        ></v-text-field>
+                      </v-form>
+
+                    </v-list-tile>
+
+                  </v-list>
+                  <v-divider></v-divider>
+
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+
+                    <v-btn flat @click="addMenu = false">Cancel</v-btn>
+                    <v-btn :disabled="!addTodoIsValid" color="primary" flat @click="addTodoList(todoName)">Add</v-btn>
+                  </v-card-actions>
+                </v-card>
+
+
+              </v-menu>
+
+            </v-list-tile-action>
+          </v-list-tile>
+
+
+          <v-list-tile v-for="(menuItem, i) in menu" :key="i" v-bind:to="`/${userName}/todos/${menuItem.title}`"
+                        :style="`background-color: ${$vuetify.theme.menuBackground}!important`">
+
+            <v-list-tile-content>
+              <v-list-tile-title v-text="menuItem.title"></v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </v-list-group>
+
+
+        <v-list-tile v-bind:to="`/${userName}/archived`">
+          <v-list-tile-action>
+
+            <v-icon>archive</v-icon>
+
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title><h3>Archive</h3></v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+
+
       </v-list>
 
 
@@ -155,7 +180,6 @@
 
         email: this.$store.state.user.email,
         breakpointName: this.$vuetify.breakpoint.name,
-        menu: this.$store.getters.getTodoLists,
         rules: {
           required: value => !!value || 'Required.',
 
@@ -167,9 +191,11 @@
               title: "blue",
               primary: colors.blue.lighten2,
               secondary: colors.grey.darken1,
-              accent: colors.shades.black,
+              accent: colors.blue.lighten3,
               error: colors.red.accent3,
-              primaryBorder: colors.blue.darken2
+              primaryBorder: colors.blue.darken2,
+              menuBackground: colors.grey.darken4,
+
             }
 
           },
@@ -181,7 +207,9 @@
               secondary: colors.grey.darken2,
               accent: colors.shades.black,
               error: colors.red.accent3,
-              primaryBorder: colors.grey.darken2
+              primaryBorder: colors.grey.darken2,
+              menuBackground: colors.grey.darken4, // base is default color
+
             }
 
           }
@@ -191,22 +219,17 @@
     name: 'App',
     beforeMount() {
       // change the vuetify theme before the app loads
-      this.$vuetify.theme = {
-        title: "blue",
-        primary: colors.blue.lighten2,
-        secondary: colors.grey.darken1,
-        accent: colors.shades.black,
-        error: colors.red.accent3,
-        primaryBorder: colors.blue.darken2
-      }
+      console.log(this.themes[0])
+      this.$vuetify.theme = this.themes[0].colors
     },
     computed: {
       color() {
         return this.$vuetify.theme.title
       },
-      // menu() {
-      //   return this.$store.getters.getTodoLists;
-      // }
+      menu() {
+        return this.$store.getters.getTodoLists;
+      },
+
     },
     methods: {
       changeTheme(theme) {

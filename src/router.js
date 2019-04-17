@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Todos from './components/Todos.vue'
+import Todo from './components/Todo.vue'
+import Dashboard from './components/Dashboard.vue'
+import Archived from './components/Archived.vue'
+
 
 Vue.use(Router)
 
@@ -10,17 +13,22 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
+      redirect: { name: 'Dashboard' }
     },
     {
-      path: '/:userName',
-      name: 'Todos',
-      component: Todos
+      path: '/:userName/dashboard',
+      name: 'Dashboard',
+      component: Dashboard
     },
     {
-      path: '/:userName/:todoList',
-      name: 'Todos',
-      component: Todos
+      path: '/:userName/todos/:todoList',
+      name: 'Todo',
+      component: Todo
+    },
+    {
+      path: '/:userName/archived',
+      name: 'Archived',
+      component: Archived
     }
   ]
 })
