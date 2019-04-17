@@ -110,7 +110,8 @@
             </v-data-table>
 
 
-            <v-btn v-if="breakpointName === 'xs'" depressed large block color="primary" class="mx-0 mt-3">
+            <v-btn v-if="breakpointName === 'xs'" depressed large block color="secondary" class="mx-0 mt-3"
+                   @click.stop="archiveTodoList()">
               <v-icon>archive</v-icon> &nbsp; Archive List
             </v-btn>
 
@@ -162,7 +163,7 @@
         this.$store.dispatch('toggleTaskItem', {listTitle: this.$route.params.todoList, name: name});
 
       },
-      toggleAll(bool) {
+      toggleAll() {
         this.isAll = !this.isAll;
         this.$store.dispatch('toggleAllTaskItems', {listTitle: this.$route.params.todoList, bool: this.isAll});
       },
