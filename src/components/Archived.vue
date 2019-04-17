@@ -37,13 +37,13 @@
 
                       <v-spacer></v-spacer>
 
-                      <v-btn depressed color="primary" @click.stop="unarchiveTodoList(props.item.title)">
+                      <v-btn depressed style="min-width: 40px" color="primary" @click.stop="unarchiveTodoList(props.item.title)">
                         <v-icon>unarchive</v-icon>
-                        Restore
+                        <span v-if="breakpointName !== 'xs'">&nbsp; Restore</span>
                       </v-btn>
                       <v-btn depressed style="min-width: 40px" color="danger" @click.stop="deleteTodoList(props.item.name)">
                         <v-icon>delete</v-icon>
-                        &nbsp; Delete
+                        <span v-if="breakpointName !== 'xs'">&nbsp; Delete</span>
                       </v-btn>
                     </v-layout>
                   </v-container>
@@ -70,7 +70,10 @@
     name: 'Archived',
 
     data() {
-      return {}
+      return {
+        breakpointName: this.$vuetify.breakpoint.name,
+
+      }
     },
     computed: {
       archivedTodoLists() {

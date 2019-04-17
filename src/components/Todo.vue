@@ -114,7 +114,7 @@
 
                         <v-btn depressed style="min-width: 40px" color="danger" @click.stop="deleteItemFromTodoList(props.item.name)">
                           <v-icon>delete</v-icon>
-                          &nbsp; Delete
+                          <span v-if="breakpointName !== 'xs'">&nbsp; Delete</span>
                         </v-btn>
 
                       </v-layout>
