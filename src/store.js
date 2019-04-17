@@ -20,10 +20,10 @@ export default new Vuex.Store({
         archived: false,
 
         tasks: [
-          {name: 'grape t', completed: true},
+          {name: 'grape', completed: true},
           {name: 'banana', completed: false},
           {name: 'tea', completed: false},
-          {name: 'Meat t', completed: true},
+          {name: 'Meat', completed: true},
           {name: 'More Meat', completed: false},
           {name: 'Cheese', completed: false}
         ]
