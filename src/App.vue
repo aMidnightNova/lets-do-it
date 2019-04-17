@@ -193,6 +193,7 @@
               secondary: colors.grey.darken1,
               accent: colors.blue.lighten3,
               error: colors.red.accent3,
+              danger: colors.red.base,
               primaryBorder: colors.blue.darken2,
               menuBackground: colors.grey.darken4,
 
@@ -207,6 +208,7 @@
               secondary: colors.grey.darken1,
               accent: colors.red.lighten3,
               error: colors.blue.accent3,
+              danger: colors.red.base,
               primaryBorder: colors.red.darken2,
               menuBackground: colors.grey.darken4, // base is default color
 
@@ -221,6 +223,7 @@
               secondary: colors.grey.darken1,
               accent: colors.green.lighten3,
               error: colors.blue.accent3,
+              danger: colors.red.base,
               primaryBorder: colors.green.darken2,
               menuBackground: colors.grey.darken4, // base is default color
 

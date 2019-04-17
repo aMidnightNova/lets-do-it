@@ -101,6 +101,17 @@ export default new Vuex.Store({
       Vue.set(state, 'todoLists', todoLists);
 
     },
+    deleteItemFromTodoList: function (state, payload) { //papyload = {listTitle,name}
+      let {todoLists} = state;
+      let todoIndex = todoLists.findIndex(item => item.title === payload.listTitle);
+
+      let taskIndex = todoLists[todoIndex].tasks.findIndex(item => item.name === payload.name);
+
+      todoLists[todoIndex].tasks.splice(taskIndex, 1);
+
+      Vue.set(state, 'todoLists', todoLists);
+
+    },
     toggleTaskItem: function (state, payload) { //papyload = {listTitle,name}
       let {todoLists} = state;
       let todoIndex = todoLists.findIndex(item => item.title === payload.listTitle);
@@ -138,6 +149,15 @@ export default new Vuex.Store({
 
       Vue.set(state, 'todoLists', todoLists);
 
+    },
+    deleteTodoList: function (state, payload) {
+      let {todoLists} = state;
+      let index = todoLists.findIndex(item => item.title === payload);
+
+      todoLists.splice(index, 1);
+
+      Vue.set(state, 'todoLists', todoLists);
+
     }
   },
   actions: {
@@ -147,6 +167,9 @@ export default new Vuex.Store({
     addItem2TodoList: function (context, payload) { // papyload = {listTitle,name}
       context.commit('addItem2TodoList', payload);
 
+    },
+    deleteItemFromTodoList: function (context, payload) { // papyload = {listTitle,name}
+      context.commit('deleteItemFromTodoList', payload);
     },
     toggleTaskItem: function (context, payload) { // papyload = {listTitle,name}
       context.commit('toggleTaskItem', payload);
@@ -159,6 +182,9 @@ export default new Vuex.Store({
     },
     unarchiveTodoList: function (context, payload) { // papyload = {listTitle,name}
       context.commit('unarchiveTodoList', payload);
+    },
+    deleteTodoList: function (context, payload) { // papyload = {listTitle,name}
+      context.commit('deleteTodoList', payload);
     }
   }
 });

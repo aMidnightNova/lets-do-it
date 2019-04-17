@@ -103,8 +103,23 @@
                             @click.stop="toggleTaskItem(props.item.name)"
                     ></v-checkbox>
                   </td>
-                  <td>{{ props.item.name }}</td>
 
+                  <td class="pr-0">
+
+                    <v-container class="pa-0 ma-0 fill-height">
+                      <v-layout row class="fill-height">
+                        <span class="text-capitalize " style="display: inline-flex; align-items: center">{{ props.item.name }}</span>
+
+                        <v-spacer></v-spacer>
+
+                        <v-btn depressed style="min-width: 40px" color="danger" @click.stop="deleteItemFromTodoList(props.item.name)">
+                          <v-icon>delete</v-icon>
+                          &nbsp; Delete
+                        </v-btn>
+
+                      </v-layout>
+                    </v-container>
+                  </td>
                 </tr>
               </template>
             </v-data-table>
@@ -158,6 +173,9 @@
       addItem2TodoList(name) {
         this.$store.dispatch('addItem2TodoList', {listTitle: this.$route.params.todoList, name: name});
         this.addMenu = false;
+      },
+      deleteItemFromTodoList(){
+        this.$store.dispatch('deleteItemFromTodoList', {listTitle: this.$route.params.todoList, name: name});
       },
       toggleTaskItem(name){
         this.$store.dispatch('toggleTaskItem', {listTitle: this.$route.params.todoList, name: name});

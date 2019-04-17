@@ -41,7 +41,10 @@
                         <v-icon>unarchive</v-icon>
                         Restore
                       </v-btn>
-
+                      <v-btn depressed style="min-width: 40px" color="danger" @click.stop="deleteTodoList(props.item.name)">
+                        <v-icon>delete</v-icon>
+                        &nbsp; Delete
+                      </v-btn>
                     </v-layout>
                   </v-container>
                 </td>
@@ -77,6 +80,9 @@
      methods: {
        unarchiveTodoList(name) {
          this.$store.dispatch('unarchiveTodoList', name);
+       },
+       deleteTodoList(name) {
+         this.$store.dispatch('deleteTodoList', name);
        }
      }
   }
