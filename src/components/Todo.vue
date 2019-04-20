@@ -27,11 +27,11 @@
                 <tr>
                   <th width="45px">
                     <v-checkbox
-                            :input-value="isAll"
+                            :input-value="isAll[theList.title]"
                             :indeterminate="inde"
                             primary
                             hide-details
-                            @click.stop="toggleAll()"
+                            @click.stop="toggleAll(theList.title)"
                     ></v-checkbox>
                   </th>
                   <th align="left" class="pr-0 fill-height">
@@ -144,7 +144,7 @@
 
     data() {
       return {
-        isAll: null,
+        isAll: {},
         inde: null,
         breakpointName: this.$vuetify.breakpoint.name,
         rules: {
@@ -181,9 +181,9 @@
         this.$store.dispatch('toggleTaskItem', {listTitle: this.$route.params.todoList, name: name});
 
       },
-      toggleAll() {
-        this.isAll = !this.isAll;
-        this.$store.dispatch('toggleAllTaskItems', {listTitle: this.$route.params.todoList, bool: this.isAll});
+      toggleAll(title) {
+        this.isAll[title] = !this.isAll[title];
+        this.$store.dispatch('toggleAllTaskItems', {listTitle: this.$route.params.todoList, bool: this.isAll[title]});
       },
       archiveTodoList() {
         this.$store.dispatch('archiveTodoList', this.$route.params.todoList);
